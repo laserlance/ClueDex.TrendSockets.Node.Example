@@ -7,9 +7,15 @@ var cluedex = new WebSocketClient();
 
 function init(){
 
+    //To only get 1-minute OHLCV/OHLC data, use this URL
     cluedex.connect('wss://www.cldxio.com/subs?channel=oneminticks&key='+cluedex_api_key,null,null,{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0'});
 
+    //To only get the ClueDex TrendSockets data, use this URL
     cluedex.connect('wss://www.cldxio.com/subs?channel=trends&key='+cluedex_api_key,null,null,{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0'});
+
+    //You can multiplex and select both channels on a single connection. Use this URL to get both data streams on one connection
+    cluedex.connect('wss://www.cldxio.com/subs?channel=trends,oneminticks&key='+cluedex_api_key,null,null,{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0'});
+
 }
 
 cluedex.on('connectFailed', function(error) {
